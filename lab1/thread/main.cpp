@@ -23,7 +23,6 @@ void SaveResult(const std::string & fileName = "res.txt")
 	for (size_t i = 1; i < 17; ++i)
 	{
 		CThreadedMatrix matrix(CThreadedMatrix::LoadMatrix(150), i);
-		//CThreadedMatrix matrix(mtr3, (atoi(argv[1])));
 
 		float firstTime = float(clock());
 		matrix.FillMatrixWithCofactorValues();
@@ -35,24 +34,21 @@ void SaveResult(const std::string & fileName = "res.txt")
 
 int main(int argc, char* argv[])
 {
-	argc = 2;
-	argv[1] = "1";
-
 	if (argc != 2)
 	{
 		std::cout << "Error: incorrect parameters";
 		return 1;
 	}
 
-    //BOOL success = SetProcessAffinityMask(GetCurrentProcess(), 1);
+	if (atoi(argv[1]) == 1)
+	{
+		CMatrix matrix(CThreadedMatrix::LoadMatrix(150));
+		matrix.CheckCalculatingTime();
+		return 0;
+	}
+	CThreadedMatrix matrix(CThreadedMatrix::LoadMatrix(150), (atoi(argv[1])));
+	matrix.CheckCalculatingTime();
 
-// 	CThreadedMatrix matrix(CThreadedMatrix::LoadMatrix(150), (atoi(argv[1])));
-// 	
-// 	float firstTime = float(clock());
-// 	matrix.FillMatrixWithCofactorValues();
-// 	float newTime = clock();
-// 
-// 	std::cout << "Calculation time: " << (float(clock()) - firstTime) / (double)CLOCKS_PER_SEC << std::endl;
 	SaveResult();
 	return 0;
 }

@@ -63,6 +63,18 @@ double CMatrix::CalculateDeterminant(const Matrix & matrix) //gauss method
 	return result;
 }
 
+void CMatrix::FillCellOfMatrix(const Matrix & matrix, size_t i, size_t j)
+{
+	Matrix cofactorMatrix = CalculateCofactorMatrix(matrix, i, j);
+	double cofactorDet = CalculateDeterminant(cofactorMatrix);
+	double resultValue = cofactorDet;
+	if ((i + j) % 2)
+	{
+		resultValue = -resultValue;
+	}
+	m_result[i][j] = resultValue;
+}
+
 void CMatrix::FillMatrixWithCofactorValues()
 {
 	m_result = Matrix(m_matrix.size(), std::vector<double>(m_matrix.size()));
@@ -72,14 +84,7 @@ void CMatrix::FillMatrixWithCofactorValues()
 	{
 		for (size_t j = 0; j < MATRIX_SIZE; ++j)
 		{
-			Matrix cofactorMatrix = CalculateCofactorMatrix(m_matrix, i, j);
-			double cofactorDet = CalculateDeterminant(cofactorMatrix);
-			double resultValue = cofactorDet;
-			if ((i + j) % 2)
-			{
-				resultValue = -resultValue;
-			}
-			m_result[i][j] = resultValue;
+			FillCellOfMatrix(m_matrix, i, j);
 		}
 	}
 }
@@ -96,4 +101,12 @@ Matrix CMatrix::LoadMatrix(size_t dimension)
 		}
 	}
 	return matrix;
+}
+
+void CMatrix::CheckCalculatingTime()
+{
+	float firstTime = float(clock());
+	FillMatrixWithCofactorValues();
+	float newTime = clock();
+	std::cout << "Calculation time: " << (float(clock()) - firstTime) / (double)CLOCKS_PER_SEC << std::endl;
 }

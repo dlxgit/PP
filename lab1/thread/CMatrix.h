@@ -23,9 +23,11 @@ public:
 	static Matrix LoadMatrix(size_t dimension);
 	virtual void FillMatrixWithCofactorValues();
 	static void CMatrix::Print(Matrix matrix);
+	void CheckCalculatingTime();
 protected:
 	static double CalculateDeterminant(const Matrix & matrix);
 	static Matrix CalculateCofactorMatrix(const Matrix & sourceMatrix, unsigned i, unsigned j);
+	static void FillCellOfMatrix(const Matrix & matrix, size_t i, size_t j);
 protected:
 	Matrix m_matrix;
 	static Matrix m_result;

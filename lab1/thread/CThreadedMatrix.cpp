@@ -101,14 +101,7 @@ DWORD CThreadedMatrix::CalculateCellOfResultMatrix(const LPVOID lpParam)
 
 	for (size_t calculatedElementsCount = 0; calculatedElementsCount < maxCount; ++calculatedElementsCount)
 	{
-		Matrix cofactorMatrix = CalculateCofactorMatrix(matrix, i, j);
-		double cofactorDet = CalculateDeterminant(cofactorMatrix);
-		double resultValue = cofactorDet;
-		if ((i + j) % 2)
-		{
-			resultValue = -resultValue;
-		}
-		m_result[i][j] = resultValue;
+		FillCellOfMatrix(matrix, i, j);
 
 		if (j == MATRIX_SIZE - 1) {
 			++i;
