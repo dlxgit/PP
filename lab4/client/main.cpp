@@ -1,4 +1,4 @@
-#include "CPipe.h"
+#include "CPipeWorker.h"
 #include "Client.h"
 #include <random>
 #include <string>

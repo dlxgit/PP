@@ -1,5 +1,5 @@
 #pragma once
-#include "CPipe.h"
+#include "CPipeWorker.h"
 #include <random>
 #include <string>
 #include<math.h> 
